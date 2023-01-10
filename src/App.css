@@ -1,5 +1,12 @@
-nav {
+#navOrange {
   background-color: #FFC017;
+  border-bottom: 1px solid black;
+  position: sticky;
+  top: 0px;
+}
+
+#navWhite {
+  background-color: white;
   border-bottom: 1px solid black;
   position: sticky;
   top: 0px;

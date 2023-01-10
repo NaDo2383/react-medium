@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './App.css';
 import Aside from './components/aside';
 import Banner from './components/banner';
@@ -170,7 +171,7 @@ function App() {
 
   return (
     <div>
-      <Header menu1={menu} ></Header>
+      <Header menu1={menu}></Header>
       <Banner></Banner>
       <Trending usersdata={users} data={news} ></Trending>
       <section id='main'>
