@@ -2,14 +2,14 @@ export default function Trending({ data, usersdata }) {
     let trendingNews = [];
 
     data.map(para => {
-        if (para.isTrending == true) {
+        if (para.isTrending === true) {
             return trendingNews.push(para)
         }
     })
 
     trendingNews.map(a => {
         usersdata.map(b => {
-            if (a.createdUserId == b.id) {
+            if (a.createdUserId === b.id) {
                 return a.createdUserInfo = { ...b }
             }
         })

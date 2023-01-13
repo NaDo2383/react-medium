@@ -8,12 +8,12 @@ import Trending from './components/trendingOnMedium';
 import Modal from "./components/signInModal";
 
 function App() {
-  const [modal, setModal]=useState(false);
-  const [user, setUser]=useState("");
-  
-  let userInfo = {username:"nado", password:"pass"}
+  const [modal, setModal] = useState(false);
+  const [user, setUser] = useState("");
 
-  const modalHandler = () => { 
+  let userInfo = { username: "nado", password: "pass" }
+
+  const modalHandler = () => {
     setModal(!modal);
   }
 
@@ -22,8 +22,8 @@ function App() {
   }
 
   const checkUserNamePassword = (userNamePara, passwordPara) => {
-    if(userInfo.username == userNamePara && userInfo.password == passwordPara) {
-      modalHandler ()
+    if (userInfo.username === userNamePara && userInfo.password === passwordPara) {
+      modalHandler()
       setUser(userNamePara);
     } else {
       alert("Username or Password is incorrect")
@@ -191,26 +191,26 @@ function App() {
     { id: 8, catName: "Productivity" },
     { id: 9, catName: "Politics" },
   ]
-  
+
 
   return (
     <div>
-      <Header 
-        menu1={menu} 
-        modalHandler={modalHandler} 
+      <Header
+        menu1={menu}
+        modalHandler={modalHandler}
         user={user}
-        setUser={userHandler}/>
+        setUser={userHandler} />
       <Banner user={user}></Banner>
       <Trending usersdata={users} data={news} ></Trending>
       <section id='main'>
         <NewsCards usersdata={users} news={news} />
         <Aside catList={newsCat} />
       </section>
-      <Modal 
-                setModal={modalHandler}
-                modal={modal}
-                checkUserNamePassword={checkUserNamePassword}
-            />
+      <Modal
+        setModal={modalHandler}
+        modal={modal}
+        checkUserNamePassword={checkUserNamePassword}
+      />
     </div >
 
   );

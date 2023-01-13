@@ -22,6 +22,6 @@ export default function Aside({ catList }) {
                 <a href="#">About</a>
                 <a href="#">Text to speech</a>
             </footer>
-        </aside>
+        </aside >
     )
 } 
