@@ -34,7 +34,7 @@ export default function Header({ menu1, modalHandler, user, setUser }) {
                         {menu1.map((e) => {
                             if (e === "Sign in") {
                                 return (
-                                    <span className="menu" onClick={modalHandler}>{e}</span>
+                                    <a className="menu" href="#top" onClick={modalHandler}>{e}</a>
                                 )
                             } else {
                                 return (
@@ -56,7 +56,7 @@ export default function Header({ menu1, modalHandler, user, setUser }) {
                         {menu1.map((e) => {
                             if (e === "Sign in") {
                                 return (
-                                    <span className="menu" onClick={() => setUser()}>Log Out! {user}</span>
+                                    <a className="menu" onClick={() => setUser()} href="#top">Log Out! {user}</a>
                                 )
                             } else {
                                 return (

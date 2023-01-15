@@ -35,14 +35,15 @@ function App() {
     {
       id: "1",
       img: require("./pic/newsPic.png"),
-      head: "Understanding Long Covid",
+      head: "Understanding Long Covid special",
       title: "We know more now than before, and it’s still alarming",
       isTrending: true,
-      category: "",
+      category: "Programming,  Data Science",
       key: "Long Covid",
       read: "9 min read",
       createdUserId: "1",
-      postedDate: "Dec 29, 2022"
+      postedDate: "Dec 29, 2022",
+      isLiked: false
     },
     {
       id: "2",
@@ -50,11 +51,12 @@ function App() {
       head: "Understanding Long Covid",
       title: "We know more now than before, and it’s still alarming",
       isTrending: true,
-      category: "",
+      category: "Data Science",
       key: "Long Covid",
       read: "9 min read",
       createdUserId: "2",
-      postedDate: "Dec 29, 2022"
+      postedDate: "Dec 29, 2022",
+      isLiked: false
     },
     {
       id: "3",
@@ -62,11 +64,12 @@ function App() {
       head: "Understanding Long Covid",
       title: "We know more now than before, and it’s still alarming",
       isTrending: true,
-      category: "",
+      category: "Data Science",
       key: "Long Covid",
       read: "9 min read",
       createdUserId: "3",
-      postedDate: "Dec 29, 2022"
+      postedDate: "Dec 29, 2022",
+      isLiked: false
     },
     {
       id: "4",
@@ -74,11 +77,12 @@ function App() {
       head: "Understanding Long Covid",
       title: "We know more now than before, and it’s still alarming",
       isTrending: true,
-      category: "",
+      category: "Technology",
       key: "Long Covid",
       read: "9 min read",
       createdUserId: "4",
-      postedDate: "Dec 29, 2022"
+      postedDate: "Dec 29, 2022",
+      isLiked: false
     },
     {
       id: "5",
@@ -86,11 +90,12 @@ function App() {
       head: "Understanding Long Covid",
       title: "We know more now than before, and it’s still alarming",
       isTrending: false,
-      category: "",
+      category: "Technology",
       key: "Long Covid",
       read: "9 min read",
       createdUserId: "5",
-      postedDate: "Dec 29, 2022"
+      postedDate: "Dec 29, 2022",
+      isLiked: false
     },
     {
       id: "6",
@@ -98,11 +103,12 @@ function App() {
       head: "Understanding Long Covid",
       title: "We know more now than before, and it’s still alarming",
       isTrending: true,
-      category: "",
+      category: "Technology",
       key: "Long Covid",
       read: "9 min read",
       createdUserId: "1",
-      postedDate: "Dec 29, 2022"
+      postedDate: "Dec 29, 2022",
+      isLiked: false
     },
     {
       id: "7",
@@ -110,11 +116,12 @@ function App() {
       head: "Understanding Long Covid",
       title: "We know more now than before, and it’s still alarming",
       isTrending: true,
-      category: "",
+      category: "Writing",
       key: "Long Covid",
       read: "9 min read",
       createdUserId: "2",
-      postedDate: "Dec 29, 2022"
+      postedDate: "Dec 29, 2022",
+      isLiked: false
     },
     {
       id: "8",
@@ -122,11 +129,12 @@ function App() {
       head: "Understanding Long Covid",
       title: "We know more now than before, and it’s still alarming",
       isTrending: false,
-      category: "",
+      category: "Writing",
       key: "Long Covid",
       read: "9 min read",
       createdUserId: "3",
-      postedDate: "Dec 29, 2022"
+      postedDate: "Dec 29, 2022",
+      isLiked: false
     },
     {
       id: "9",
@@ -134,11 +142,12 @@ function App() {
       head: "Understanding Long Covid",
       title: "We know more now than before, and it’s still alarming",
       isTrending: false,
-      category: "",
+      category: "Writing",
       key: "Long Covid",
       read: "9 min read",
       createdUserId: "4",
-      postedDate: "Dec 29, 2022"
+      postedDate: "Dec 29, 2022",
+      isLiked: false
     },
     {
       id: "10",
@@ -146,11 +155,12 @@ function App() {
       head: "Understanding Long Covid",
       title: "We know more now than before, and it’s still alarming",
       isTrending: false,
-      category: "",
+      category: "Writing",
       key: "Long Covid",
       read: "9 min read",
       createdUserId: "5",
-      postedDate: "Dec 29, 2022"
+      postedDate: "Dec 29, 2022",
+      isLiked: false
     },
   ]
   let users = [
@@ -192,6 +202,28 @@ function App() {
     { id: 9, catName: "Politics" },
   ]
 
+  const [newsData, setNewsData] = useState(news);
+  const [newsDataFiltered, setNewsDataFiltered] = useState(news);
+  const [isFiltered, setIsFiltered ] = useState(false)
+  let newArr1 = [];
+
+  function catFilter (para) {
+    setNewsDataFiltered(newsData.filter(newArr => newArr.category.includes(para)))
+    setIsFiltered(true);
+  }
+
+  function iconHandler (para) {
+    newsData.map((news,index) => {
+      let newArr2 = [...newsData]
+        if(news.id===para && news.isLiked===false){
+          newArr2[index].isLiked=true
+          setNewsData(newArr2)
+        }else if(news.id===para && news.isLiked===true){
+          newArr2[index].isLiked=false
+          setNewsData(newArr2)
+        }
+    })  
+  } 
 
   return (
     <div>
@@ -203,8 +235,8 @@ function App() {
       <Banner user={user}></Banner>
       <Trending usersdata={users} data={news} ></Trending>
       <section id='main'>
-        <NewsCards usersdata={users} news={news} />
-        <Aside catList={newsCat} />
+        <NewsCards usersdata={users} news={isFiltered? newsDataFiltered : newsData } iconHandler={iconHandler} user={user} />
+        <Aside catList={newsCat} catFilter={catFilter}/>
       </section>
       <Modal
         setModal={modalHandler}

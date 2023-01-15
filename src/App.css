@@ -26,6 +26,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: #292929;
+  font-weight: 500;
+}
+
+a {
+  text-decoration: none;
+  color: #292929;
+  font-weight: 500;
 }
 
 #getStartedOrange {
@@ -214,6 +222,8 @@
   line-height: 20px;
   color: #757575;
   margin-top: 9px;
+  display: flex;
+  justify-content: space-between;
 }
 
 aside {

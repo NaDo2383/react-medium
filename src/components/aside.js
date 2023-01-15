@@ -1,4 +1,4 @@
-export default function Aside({ catList }) {
+export default function Aside({ catList , catFilter}) {
     return (
         <aside>
             <h3 id="asideHeader">DISCOVER MORE OF WHAT MATTERS TO YOU</h3>
@@ -6,7 +6,7 @@ export default function Aside({ catList }) {
                 {
                     catList.map(a => {
                         return (
-                            <span className="newsCat">{a.catName}</span>
+                            <span className="newsCat" onClick={() => catFilter(a.catName)}>{a.catName}</span>
                         )
                     })
                 }
