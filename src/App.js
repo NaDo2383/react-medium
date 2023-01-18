@@ -6,12 +6,19 @@ import Header from './components/header';
 import NewsCards from './components/newsCards';
 import Trending from './components/trendingOnMedium';
 import Modal from "./components/signInModal";
+import AdminLogIn from './pages/adminLogIn';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 
 function App() {
   const [modal, setModal] = useState(false);
   const [user, setUser] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+  const navigate = useNavigate();
 
-  let userInfo = { username: "nado", password: "pass" }
+  let userInfo = [
+    { username: "nado", password: "pass", isAdmin: false },
+    { username: "admin", password: "adminpass", isAdmin: true },
+  ]
 
   const modalHandler = () => {
     setModal(!modal);
@@ -22,12 +29,31 @@ function App() {
   }
 
   const checkUserNamePassword = (userNamePara, passwordPara) => {
-    if (userInfo.username === userNamePara && userInfo.password === passwordPara) {
-      modalHandler()
-      setUser(userNamePara);
-    } else {
-      alert("Username or Password is incorrect")
-    }
+    let users = []
+    userInfo.map(e => {
+      users.push(e.username)
+    })
+    userInfo.map(e => {
+      if (users.includes(userNamePara)) {
+        if (e.isAdmin == false) {
+          if (e.username === userNamePara && e.password === passwordPara) {
+            modalHandler()
+            setUser(userNamePara);
+          }
+        } else if (e.isAdmin == true) {
+          if (e.username === userNamePara && e.password === passwordPara) {
+            modalHandler()
+            setUser(userNamePara);
+            navigate("/adminLogin");
+            setIsAdmin(true)
+          }
+        } else {
+          alert("Username or Password is incorrect")
+        }
+      } else {
+        alert("Username not found")
+      }
+    })
   }
 
   let menu = ["Our story", "Membership", "Write", "Sign in",];
@@ -204,48 +230,57 @@ function App() {
 
   const [newsData, setNewsData] = useState(news);
   const [newsDataFiltered, setNewsDataFiltered] = useState(news);
-  const [isFiltered, setIsFiltered ] = useState(false)
+  const [isFiltered, setIsFiltered] = useState(false)
   let newArr1 = [];
 
-  function catFilter (para) {
+  function catFilter(para) {
     setNewsDataFiltered(newsData.filter(newArr => newArr.category.includes(para)))
     setIsFiltered(true);
   }
 
-  function iconHandler (para) {
-    newsData.map((news,index) => {
+  function iconHandler(para) {
+    newsData.map((news, index) => {
       let newArr2 = [...newsData]
-        if(news.id===para && news.isLiked===false){
-          newArr2[index].isLiked=true
-          setNewsData(newArr2)
-        }else if(news.id===para && news.isLiked===true){
-          newArr2[index].isLiked=false
-          setNewsData(newArr2)
-        }
-    })  
-  } 
+      if (news.id === para && news.isLiked === false) {
+        newArr2[index].isLiked = true
+        setNewsData(newArr2)
+      } else if (news.id === para && news.isLiked === true) {
+        newArr2[index].isLiked = false
+        setNewsData(newArr2)
+      }
+    })
+  }
+  if (!isAdmin) {
+    return (
+      <div>
+        <Header
+          menu1={menu}
+          modalHandler={modalHandler}
+          user={user}
+          setUser={userHandler} />
+        <Banner user={user}></Banner>
+        <Trending usersdata={users} data={news} ></Trending>
+        <section id='main'>
+          <NewsCards usersdata={users} news={isFiltered ? newsDataFiltered : newsData} iconHandler={iconHandler} user={user} />
+          <Aside catList={newsCat} catFilter={catFilter} />
+        </section>
+        <Modal
+          setModal={modalHandler}
+          modal={modal}
+          checkUserNamePassword={checkUserNamePassword}
+        />
+      </div >
+    );
+  } else {
+    return (
+      <div>
+        <Routes>
+          <Route exact path="/adminLogin" element={<AdminLogIn />} />
+        </Routes>
+      </div>
+    )
+  }
 
-  return (
-    <div>
-      <Header
-        menu1={menu}
-        modalHandler={modalHandler}
-        user={user}
-        setUser={userHandler} />
-      <Banner user={user}></Banner>
-      <Trending usersdata={users} data={news} ></Trending>
-      <section id='main'>
-        <NewsCards usersdata={users} news={isFiltered? newsDataFiltered : newsData } iconHandler={iconHandler} user={user} />
-        <Aside catList={newsCat} catFilter={catFilter}/>
-      </section>
-      <Modal
-        setModal={modalHandler}
-        modal={modal}
-        checkUserNamePassword={checkUserNamePassword}
-      />
-    </div >
-
-  );
 }
 
 export default App;
