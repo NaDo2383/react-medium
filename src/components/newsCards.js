@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 export default function NewsCards({ news, usersdata, iconHandler, user }) {
     news.map(a => {
@@ -21,8 +22,10 @@ if(!user){
                                 <img src={news.createdUserInfo.img} alt="" className="NewsJournalistIcon" />
                                 <span className="NewsJournalistName">{news.createdUserInfo.name}</span>
                             </div>
-                            <h3 className="NewsHead">{news.head}</h3>
-                            <div className="NewsTitle">{news.title}</div>
+                            <Link to={`/newsDetail/${news.id}`}>
+                                <h3 className="NewsHead">{news.head}</h3>
+                                <div className="NewsTitle">{news.title}</div>
+                            </Link>
                             <div className="NewsDate">
                                     {news.postedDate} · {news.read}                                   
                             </div>

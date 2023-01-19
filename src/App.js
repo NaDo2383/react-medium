@@ -8,6 +8,7 @@ import Trending from './components/trendingOnMedium';
 import Modal from "./components/signInModal";
 import AdminLogIn from './pages/adminLogIn';
 import { Route, Routes, useNavigate } from 'react-router-dom';
+import NewsDetail from './pages/newsDetail';
 
 function App() {
   const [modal, setModal] = useState(false);
@@ -269,6 +270,9 @@ function App() {
           modal={modal}
           checkUserNamePassword={checkUserNamePassword}
         />
+        <Routes>
+          <Route path="/newsDetail/:id" element={<NewsDetail />} />
+        </Routes>
       </div >
     );
   } else {
