@@ -50,6 +50,7 @@ function App() {
           }
         } else {
           alert("Username or Password is incorrect")
+
         }
       } else {
         alert("Username not found")
@@ -262,7 +263,7 @@ function App() {
         <Banner user={user}></Banner>
         <Trending usersdata={users} data={news} ></Trending>
         <section id='main'>
-          <NewsCards usersdata={users} news={isFiltered ? newsDataFiltered : newsData} iconHandler={iconHandler} user={user} />
+          <NewsCards usersdata={users} news={isFiltered ? newsDataFiltered : newsData} iconHandler={iconHandler} user={user} navigate={navigate} />
           <Aside catList={newsCat} catFilter={catFilter} />
         </section>
         <Modal
