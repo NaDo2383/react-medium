@@ -10,45 +10,13 @@ import  {userInfo} from "./components/data"
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const navigate = useNavigate(); 
 
-
-  const checkUserNamePassword = (userNamePara, passwordPara) => {
-    let users = []
-    userInfo.map(e => {
-      users.push(e.username)
-    })
-    userInfo.map(e => {
-      if (users.includes(userNamePara)) {
-        if (e.isAdmin == false) {
-          if (e.username === userNamePara && e.password === passwordPara) {
-            modalHandler()
-            setUser(userNamePara);
-            setWrongPass(false)
-          } else {
-            setWrongPass(true)
-          }
-        } else if (e.isAdmin == true) {
-          if (e.username === userNamePara && e.password === passwordPara) {
-            modalHandler()
-            setUser(userNamePara);
-            navigate("/adminLogin");
-            setIsAdmin(true)
-            setWrongPass(false)
-          } 
-        } else {
-          setWrongPass(true)
-        }
-      } else {
-        setWrongPass(true)
-      }
-    })
-  }
   if (!isAdmin) {
     return (
       <div>
-        <Home  checkUserNamePassword={checkUserNamePassword}/>
+        
         <Routes>
+          <Route exact path='/' element={<Home setIsAdmin={setIsAdmin}/>} />
           <Route path="/newsDetail/:id" element={<NewsDetail />} />
         </Routes>
       </div >

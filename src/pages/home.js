@@ -12,22 +12,55 @@ import NewsDetail from '../pages/newsDetail';
 import  {menu, news, users,newsCat, userInfo} from "../components/data"
 
 
-export default function Home({checkUserNamePassword}) {
+export default function Home({setIsAdmin}) {
 
-  const navigate = useNavigate();
-  const [modal, setModal] = useState(false);
-  const [user, setUser] = useState("");
-  const [wrongPass, setWrongPass] = useState(false)
-  const userHandler = () => {
+    
+    const navigate = useNavigate();
+    const [modal, setModal] = useState(false);
+    const [user, setUser] = useState("");
+    const [wrongPass, setWrongPass] = useState(false)
+    const userHandler = () => {
       setUser("");
     }
-    const modalHandler = () => {
+     const modalHandler = () => {
       setModal(!modal);
     }
 
-  const [newsData, setNewsData] = useState(news);
-  const [newsDataFiltered, setNewsDataFiltered] = useState(news);
-  const [isFiltered, setIsFiltered] = useState(false)
+    const [newsData, setNewsData] = useState(news);
+    const [newsDataFiltered, setNewsDataFiltered] = useState(news);
+    const [isFiltered, setIsFiltered] = useState(false)
+
+    const checkUserNamePassword = (userNamePara, passwordPara) => {
+    let users = []
+    userInfo.map(e => {
+      users.push(e.username)
+    })
+    userInfo.map(e => {
+      if (users.includes(userNamePara)) {
+        if (e.isAdmin == false) {
+          if (e.username === userNamePara && e.password === passwordPara) {
+            modalHandler()
+            setUser(userNamePara);
+            setWrongPass(false)
+          } else {
+            setWrongPass(true)
+          }
+        } else if (e.isAdmin == true) {
+          if (e.username === userNamePara && e.password === passwordPara) {
+            modalHandler()
+            setUser(userNamePara);
+            navigate("/adminLogin");
+            setIsAdmin(true)
+            setWrongPass(false)
+          } 
+        } else {
+          setWrongPass(true)
+        }
+      } else {
+        setWrongPass(true)
+      }
+    })
+  }
 
   function catFilter(para) {
     setNewsDataFiltered(newsData.filter(newArr => newArr.category.includes(para)))
@@ -72,6 +105,3 @@ export default function Home({checkUserNamePassword}) {
       </div >
     )
 }
-
-export {setUser, modalHandler, setWrongPass} 
-
