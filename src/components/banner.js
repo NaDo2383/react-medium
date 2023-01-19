@@ -8,7 +8,7 @@ export default function Banner({user}) {
                         <p id="bannerTextBody">
                             Discover stories, thinking, and expertise from writers on any topic.
                         </p>
-                        <span id="bannerBtn">Start reading</span>
+                        <p id="bannerBttn">Start reading</p>
                     </div>
                 </div>
             </section>

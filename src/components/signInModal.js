@@ -1,16 +1,18 @@
 import { useState } from "react"
 
-export default function Modal ({ setModal , modal, checkUserNamePassword}) {
+export default function Modal ({ setModal , modal, checkUserNamePassword, wrongPass}) {
 
     const [userName, setUserName] = useState ("")
     const [userPass, setUserPass] = useState ("")
     
     let style = {display: modal? "block":"none"}
+    let style1 = {display: wrongPass? "block":"none"}
 
     return(
         <div className="signInModal" style={style} onClick={setModal}>
             <div className="signInModalBody" onClick={(e) => e.stopPropagation()}>
-                <h1 signInModalHeade>Welcome Back</h1>
+                <h1 className="signInModalHeade">Welcome Back</h1>
+                <p className="wrongPass" style={style1}>Your username or password is wrong</p>
                 <div id="modalUsernameContainer" className="modalInputContainer">
                     <label>Username</label>
                     <input 
