@@ -15,7 +15,7 @@ export default function AdminLogIn() {
                 console.log(dt.news);
                 setData(dt.news);
             })
-            .catch((err) => setError(err))
+            // .catch((err) => setError(err))
             .finally(() => setLoading(false))
     }, []);
 
