@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import AdminLogIn from './pages/adminLogIn';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import NewsDetail from './pages/newsDetail';
 import Home from './pages/home';
 
@@ -14,7 +14,7 @@ function App() {
     return (
       <div>
         <Routes>
-          <Route exact path='/' element={<Home setIsAdmin={setIsAdmin}/>} />
+          <Route exact path='/' element={<Home setIsAdmin={setIsAdmin} />} />
           <Route path="/newsDetail/:id" element={<NewsDetail />} />
         </Routes>
       </div >
@@ -25,7 +25,6 @@ function App() {
         <Routes>
           <Route exact path="/adminLogin" element={<AdminLogIn />} />
         </Routes>
-
       </div>
     )
   }
