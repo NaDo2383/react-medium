@@ -9,23 +9,21 @@ export default function AdminLogIn() {
 
     useEffect(() => {
         setLoading(true)
-        fetch("http://192.168.1.50:4040/news")
+        fetch("https://medium-api-psi.vercel.app/api/news")
             .then((response) => response.json())
             .then((dt) => {
-                console.log(dt.news);
-                setData(dt.news);
+                console.log(dt.result);
+                setData(dt.result);
             })
-            // .catch((err) => setError(err))
+            .catch((err) => setError(err))
             .finally(() => setLoading(false))
     }, []);
 
     if (loading) return "Loading";
-    // if (error) return "Error"
+
 
     return (
         <div>
-
-
             <div className='navbar bg-dark flex-nowrap'>
                 <a href='#' className='navbar-brand'>Company Name</a>
                 <input type="text" className='w-100 form-control bg-dark border-0' />
@@ -104,16 +102,40 @@ export default function AdminLogIn() {
                                         <th>IsTrending</th>
                                     </thead>
                                     <tbody>
-                                        {data.map(({ _id, title, isTrending, category }, index) => {
+
+                                        {
+                                            error ? (<div>Error</div>) : (
+                                                data.map(({ _id, title, isTrending, category }, index) => {
+                                                    return (
+                                                        <tr key={index}>
+                                                            <td>{index + 1}</td>
+                                                            <td>{title}</td>
+                                                            <td>{category}</td>
+                                                            <td>{isTrending ? (<span className='badge bg-success'>Yes</span>) : (<span className='badge bg-danger'>No</span>)}</td>
+                                                        </tr>)
+                                                })
+                                            )
+
+
+
+
+                                        }
+                                        {/* 
+                                        {if(error){
+                                            
+                                        <div>Error</div>
+                                        
+                                        }else{
+                                         (data.map(({ _id, title, isTrending, category }, index) => {
                                             return (
                                                 <tr key={index}>
                                                     <td>{index + 1}</td>
                                                     <td>{title}</td>
                                                     <td>{category}</td>
                                                     <td>{isTrending ? (<span className='badge bg-success'>Yes</span>) : (<span className='badge bg-danger'>No</span>)}</td>
-                                                </tr>
-                                            )
-                                        })}
+                                                </tr>)
+                                        })})
+                                        }} */}
                                     </tbody>
                                 </table>
                             </div>
