@@ -1,0 +1,91 @@
+#NewsDetailHeader {
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    background: #FEFBFF;
+    border-bottom: 1px solid grey;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+#logoAndSearch {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#newsDetailHeaderSearch {
+    background-color: #F5F2F6;
+    border-radius: 20px;
+    padding: 10px;
+    gap: 10px;
+    display: flex;
+    align-items: center;
+}
+
+#searchInput {
+    height: 20px;
+    background-color: #F5F2F6;
+    border: none;
+    outline: none;
+}
+
+#signingSection {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+#writeSection {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#NewsDetailHeaderBtns {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#signUpBtn {
+    background-color: #BB1A8E;
+    color: #FFF1FF;
+    border: 1px solid #BB1A8E;
+    border-radius: 1386px;
+    padding: 5px 14px 7px 14px;
+
+}
+
+#profile {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#newsDetailMainSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#newsDetailMainSection1{
+    display: flex;
+    max-width: 1380px;
+}
+
+#newsDetailMainHead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#createdUserInfo {
+    display: flex;
+    gap: 16px;
+}
+
+#socialIcons {
+    display: flex;
+    gap: 33px;
+}

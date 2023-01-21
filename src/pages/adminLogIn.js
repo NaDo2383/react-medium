@@ -21,7 +21,6 @@ export default function AdminLogIn() {
 
     if (loading) return "Loading";
 
-
     return (
         <div>
             <div className='navbar bg-dark flex-nowrap'>
@@ -102,10 +101,9 @@ export default function AdminLogIn() {
                                         <th>IsTrending</th>
                                     </thead>
                                     <tbody>
-
                                         {
                                             error ? (<div>Error</div>) : (
-                                                data.map(({ _id, title, isTrending, category }, index) => {
+                                                data.map(({ title, isTrending, category }, index) => {
                                                     return (
                                                         <tr key={index}>
                                                             <td>{index + 1}</td>
@@ -115,27 +113,7 @@ export default function AdminLogIn() {
                                                         </tr>)
                                                 })
                                             )
-
-
-
-
                                         }
-                                        {/* 
-                                        {if(error){
-                                            
-                                        <div>Error</div>
-                                        
-                                        }else{
-                                         (data.map(({ _id, title, isTrending, category }, index) => {
-                                            return (
-                                                <tr key={index}>
-                                                    <td>{index + 1}</td>
-                                                    <td>{title}</td>
-                                                    <td>{category}</td>
-                                                    <td>{isTrending ? (<span className='badge bg-success'>Yes</span>) : (<span className='badge bg-danger'>No</span>)}</td>
-                                                </tr>)
-                                        })})
-                                        }} */}
                                     </tbody>
                                 </table>
                             </div>
