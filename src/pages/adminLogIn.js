@@ -1,25 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Barchart } from '../components/barChart';
+import AddingNews from './addingNews';
+import { Outlet } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 export default function AdminLogIn() {
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState();
-
-    useEffect(() => {
-        setLoading(true)
-        fetch("https://medium-api-psi.vercel.app/api/news")
-            .then((response) => response.json())
-            .then((dt) => {
-                console.log(dt.result);
-                setData(dt.result);
-            })
-            .catch((err) => setError(err))
-            .finally(() => setLoading(false))
-    }, []);
-
-    if (loading) return "Loading";
 
     return (
         <div>
@@ -40,7 +26,7 @@ export default function AdminLogIn() {
                                 <a className='nav-link'>Dashboard</a>
                             </div>
                             <div className='nav-items'>
-                                <a className='nav-link'>News</a>
+                                <Link to="/admin/addnews" className='nav-link'>News</Link>
                             </div>
                             <div className='nav-items'>
                                 <a className='nav-link'>User</a>
@@ -48,79 +34,11 @@ export default function AdminLogIn() {
                         </div>
                     </div>
                     <div className='col-md-9'>
-                        <div className='row my-4'>
-                            <div className='col-md-4'>
-                                <div className='card p-3'>
-                                    <div className='card-title'>Users</div>
-                                    <div className='d-flex justify-content-between align-items-center'>
-
-                                        <i
-                                            className='bi bi-people'
-                                            style={{ fontSize: "40px" }}
-                                        ></i>
-                                        <h1>4500</h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='col-md-4'>
-                                <div className='card p-3'>
-                                    <div className='card-title'>News</div>
-                                    <div className='d-flex justify-content-between align-items-center'>
-
-                                        <i
-                                            className='bi bi-newspaper'
-                                            style={{ fontSize: "40px" }}
-                                        ></i>
-                                        <h1>9000</h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='col-md-4'>
-                                <div className='card p-3'>
-                                    <div className='card-title'>Category</div>
-                                    <div className='d-flex justify-content-between align-items-center'>
-                                        <i
-                                            className='bi bi-tags'
-                                            style={{ fontSize: "40px" }}
-                                        ></i>
-                                        <h1>20</h1>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='row p-3'>
-                            <Barchart />
-                        </div>
-                        <div className='row p-3'>
-                            <div className='table-responsive'>
-                                <table className='table'>
-                                    <thead>
-                                        <th>№</th>
-                                        <th>Title</th>
-                                        <th>Category</th>
-                                        <th>IsTrending</th>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            error ? (<div>Error</div>) : (
-                                                data.map(({ title, isTrending, category }, index) => {
-                                                    return (
-                                                        <tr key={index}>
-                                                            <td>{index + 1}</td>
-                                                            <td>{title}</td>
-                                                            <td>{category}</td>
-                                                            <td>{isTrending ? (<span className='badge bg-success'>Yes</span>) : (<span className='badge bg-danger'>No</span>)}</td>
-                                                        </tr>)
-                                                })
-                                            )
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        <Outlet />
                     </div>
                 </div>
             </div>
+
         </div >
     )
 }
