@@ -6,6 +6,7 @@ import NewsDetail from './pages/newsDetail';
 import Home from './pages/home';
 import AddingNews from './pages/addingNews';
 import Dashboard from './pages/Dashboard';
+import AdminUsers from './pages/adminUser';
 
 
 function App() {
@@ -20,8 +21,8 @@ function App() {
         <Route element={<AdminLogIn />} >
           <Route index path='/admin' element={<Dashboard />} />
           <Route path="/addnews" element={<AddingNews />} />
-          {/* <Route path="/users" element={<AddingNews />} />
-          <Route path="/addusers" element={<AddingNews />} /> */}
+          <Route path="/users" element={<AdminUsers/>} />
+          <Route path="/addusers" element={<AddingNews />} />
         </Route>
       </Routes>
     </>
