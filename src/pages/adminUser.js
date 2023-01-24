@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../css/admin.css";
 
 export default function AdminUsers() {
@@ -16,6 +17,7 @@ export default function AdminUsers() {
     const [error, setError] = useState();
     const [modal, setModal] = useState(false);
     const [user, setUser] = useState(init);
+    const [dummy, setDummy] = useState(true)
 
     let style = { display: modal ? "block" : "none" };
 
@@ -25,6 +27,11 @@ export default function AdminUsers() {
         setModal(!modal);
     }
 
+    useEffect(() => {
+        setLoading(true);
+        fetchGet()
+    }, []);
+
     const onSave = (e) => {
         e.preventDefault();
         fetch("https://medium-api-psi.vercel.app/api/users", {
@@ -32,20 +39,20 @@ export default function AdminUsers() {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: user,
+            body: JSON.stringify(user),
         })
             .then((res) => res.json())
             .then((data) => {
                 console.log("saved");
                 console.log(data);
+                fetchGet();
             })
             .catch((err) => console.log(err));
         modalHandler();
         setUser(init);
     };
 
-    useEffect(() => {
-        setLoading(true);
+    function fetchGet() {
         fetch("https://medium-api-psi.vercel.app/api/users")
             .then((response) => response.json())
             .then((dt) => {
@@ -53,7 +60,19 @@ export default function AdminUsers() {
             })
             .catch((err) => setError(err))
             .finally(() => setLoading(false));
-    }, []);
+    }
+
+    function deleteUser(para) {
+        fetch("https://medium-api-psi.vercel.app/api/users?id=" + para, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then((data => {
+                console.log(data);
+                fetchGet();
+            }))
+            .catch((err) => setError(err))
+    }
 
     if (loading) return "Loading";
     return (
@@ -181,6 +200,7 @@ export default function AdminUsers() {
                                     <th>User Name</th>
                                     <th>Organization</th>
                                     <th>userType</th>
+                                    <th>Buttons</th>
                                 </thead>
                                 <tbody>
                                     {error ? (
@@ -192,6 +212,7 @@ export default function AdminUsers() {
                                                     username,
                                                     organization,
                                                     userType,
+                                                    _id
                                                 },
                                                 index
                                             ) => {
@@ -203,7 +224,7 @@ export default function AdminUsers() {
                                                         <td>
                                                             {userType ? (
                                                                 userType ==
-                                                                "admin" ? (
+                                                                    "admin" ? (
                                                                     <span className="badge bg-success">
                                                                         Admin
                                                                     </span>
@@ -216,6 +237,10 @@ export default function AdminUsers() {
                                                             ) : (
                                                                 ""
                                                             )}
+                                                        </td>
+                                                        <td>
+                                                            <div className="btn btn-danger" onClick={() => deleteUser(_id)}>Delete</div>
+                                                            <div className="btn btn-secondary">Edit</div>
                                                         </td>
                                                     </tr>
                                                 );
