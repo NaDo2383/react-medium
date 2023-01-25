@@ -6,13 +6,12 @@ import Header from '../components/header';
 import NewsCards from '../components/newsCards';
 import Trending from '../components/trendingOnMedium';
 import Modal from "../components/signInModal";
-import AdminLogIn from '../pages/adminLogIn';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import NewsDetail from '../pages/newsDetail';
 import { menu, news, users, newsCat, userInfo } from "../components/data"
 
 
-export default function Home({ setIsAdmin }) {
+export default function Home() {
 
 
   const navigate = useNavigate();
@@ -37,7 +36,7 @@ export default function Home({ setIsAdmin }) {
     })
     userInfo.map(e => {
       if (users.includes(userNamePara)) {
-        if (e.isAdmin == false) {
+        if (e.isAdmin = false) {
           if (e.username === userNamePara && e.password === passwordPara) {
             modalHandler()
             setUser(userNamePara);
@@ -45,12 +44,11 @@ export default function Home({ setIsAdmin }) {
           } else {
             setWrongPass(true)
           }
-        } else if (e.isAdmin == true) {
+        } else if (e.isAdmin === true) {
           if (e.username === userNamePara && e.password === passwordPara) {
             modalHandler()
             setUser(userNamePara);
             navigate("/admin");
-            setIsAdmin(true)
             setWrongPass(false)
           }
         } else {

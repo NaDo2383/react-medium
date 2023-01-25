@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../css/admin.css";
 
 export default function AdminUsers() {
@@ -17,7 +16,6 @@ export default function AdminUsers() {
     const [error, setError] = useState();
     const [modal, setModal] = useState(false);
     const [user, setUser] = useState(init);
-    const [dummy, setDummy] = useState(true)
 
     let style = { display: modal ? "block" : "none" };
 
